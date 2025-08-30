@@ -1,0 +1,43 @@
+---
+import { getEntry } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'about' } },
+    // Add other pages here
+  ];
+}
+
+const { slug } = Astro.params;
+const page = await getEntry('pages', slug);
+
+if (!page) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found'
+  });
+}
+
+const { Content } = await page.render();
+---
+
+<MainLayout pageTitle={page.data.title}>
+  <div class="content-container">
+    <h1>{page.data.title}</h1>
+    <Content />
+  </div>
+</MainLayout>
+
+<style>
+  .content-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+  }
+  .content-container :global(p) {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #1A1A1A;
+  }
+</style>

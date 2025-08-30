@@ -1,63 +1,102 @@
 ---
-// This is the "Code Fence". We'll define our page's metadata here.
-import AboutSection from '../components/AboutSection.astro';
-
-const pageTitle = "Plato & Platonism Seminar";
-const seminarTheme = "On Language";
+// src/pages/index.astro
+import MainLayout from '../layouts/MainLayout.astro';
 ---
+<MainLayout pageTitle="Plato & Platonism Seminar">
+  <main class="hero">
+    <video autoplay loop muted playsinline class="hero-video">
+      <source src="/hero-video.mp4" type="video/mp4" />
+    </video>
 
-<html lang="en">
-  <head>
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{pageTitle}</title>
-  </head>
-  <body>
-    <main class="hero">
-      <h1>{pageTitle}</h1>
-      <p>{seminarTheme}</p>
-    </main>
-	<AboutSection />
-  </body>
-</html>
+    <div class="hero-content">
+      <h1>Seminário de Platão & Platonismo</h1>
+      <p>na Universidade de Brasília</p>
+    </div>
+  </main>
+</MainLayout>
 
-<style is:global>
-	:root {
-	  /* Let's try the test font again in a global context */
-	  font-family: 'Inter', sans-serif;
-	}
+<style>
+  /* All the styles for the hero section remain here */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+  }
+  .hero-content {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 2rem;
+    border-radius: 8px;
+    z-index: 1;
+    margin-left: 4rem; /* Position in first column */
+    text-align: left;
+  }
   
-	body {
-	  margin: 0;
-	  background-color: #F8F9FA;
-	}
+  h1 { font-size: 3rem; }
+  p { font-size: 1.5rem; }
+
+    /* ADD THESE NEW RULES */
+    .hero-content h1, .hero-content p {
+    /* 1. Make the text invisible and slightly moved down */
+    opacity: 0;
+    transform: translateY(20px);
+    
+    /* 2. Define the animation that will run when properties change */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  /* Add a slight delay to the paragraph for a staggered effect */
+  .hero-content p {
+    transition-delay: 0.2;
+  }
+  /* ADD THIS RULE */
+  .hero-content.is-visible h1,
+  .hero-content.is-visible p {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+
+<script>
+  // Find the text container element
+  const heroContent = document.querySelector('.hero-content');
   
-	.hero {
-	  width: 100%;
-	  height: 100vh;
-	  /* background-image: url('https://technosphere-magazine.hkw.de/assets/6aefb210-0ee6-11e7-a253-d9923802c14e/f9a05215-697e-44bd-a0e9-eb80d87dc444.png'); */
-	  background-size: cover;
-	  background-position: center;
-	  display: flex;
-	  flex-direction: column;
-	  justify-content: center;
-	  align-items: center;
-	  text-align: center;
-	  color: #1A1A1A;
-	}
-  
-	h1 {
-		color: #1A1A1A;
-		text-decoration: underline;
-		text-decoration-color: #64748B;
-	  font-size: 3rem;
-	  margin-bottom: 0.5rem;
-	}
-  
-	p {
-	  font-size: 1.5rem;
-	  font-style: italic;
-	}
-  </style>
+  if (heroContent) {
+    // Create an Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Element is visible, trigger the animation after a delay
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, 1200); // 800ms delay - adjust as needed
+          // Stop observing this element since we only want to trigger once
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      // Optional: trigger when 50% of the element is visible
+      threshold: 0.5,
+      // Optional: add some margin to trigger slightly before/after
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    // Start observing the hero content
+    observer.observe(heroContent);
+  }
+  </script>

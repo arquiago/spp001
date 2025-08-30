@@ -1,0 +1,76 @@
+---
+// src/components/Header.astro
+---
+<header>
+    <a href="/" class="logo">
+    <img src="/logo.png" alt="Seminar Logo" />
+    </a>
+    <nav>
+      <a href="/about">About</a>
+      <a href="/schedule">Schedule</a>
+      <a href="/readings">Readings</a>
+    </nav>
+  </header>
+  
+  <style>
+    header {
+      position: fixed; /* This makes it stick to the top */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10; /* Ensures it's on top of other content */
+      
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      padding: 2rem 1rem;
+      background-color: rgba(0,0,0,0); /* Semi-transparent Ink Black */
+      backdrop-filter: blur(10px); /* This creates the cool "frosted glass" effect */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  
+    a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  
+    /* Replace the old .logo rule with these */
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 60px; /* Header-friendly height */
+    }
+
+    .logo img {
+      height: 60px; /* Small height for layout */
+      transform: scale(2); /* Scale it up 2x (adjust as needed) */
+      transform-origin: left center; /* Scale from left side */
+    }
+  
+    nav {
+      display: flex;
+
+      
+      margin-right:10rem
+    }
+
+    nav a:not(:first-child)::before {
+      content: ''; /* We create an empty element, not a text character */
+      display: inline-block; /* This allows us to give it a specific height */
+  
+      /* Make the line 20% taller than the text */
+      height: 1.7em;
+  
+      /* Create the visible line using a border */
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+  
+      /* Center the taller line vertically with the text */
+      vertical-align: middle;
+  
+      /* Keep the spacing on the sides */
+      margin: 0 1.5rem;
+    }
+
+  </style>

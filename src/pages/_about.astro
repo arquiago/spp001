@@ -1,0 +1,37 @@
+---
+import { getEntry } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const aboutPage = await getEntry('pages', 'about');
+
+if (!aboutPage) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found'
+  });
+}
+
+const { Content } = await aboutPage.render();
+---
+
+<MainLayout pageTitle={aboutPage.data.title}>
+  <div class="content-container">
+    <h1>{aboutPage.data.title}</h1>
+    
+    <Content />
+  </div>
+</MainLayout>
+
+<style>
+  .content-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+  }
+
+  .content-container :global(p) {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #1A1A1A;
+  }
+</style>

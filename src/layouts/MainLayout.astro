@@ -1,0 +1,30 @@
+---
+// src/layouts/MainLayout.astro
+import Header from '../components/Header.astro';
+
+// This allows each page to set its own title
+const { pageTitle } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <title>{pageTitle}</title>
+    <style is:global>
+      /* All your global styles go here */
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background-color: #F8F9FA; /* Paper White */
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <slot /> 
+  </body>
+</html>

@@ -1,0 +1,63 @@
+---
+// This is the "Code Fence". We'll define our page's metadata here.
+import AboutSection from '../components/AboutSection.astro';
+
+const pageTitle = "Plato & Platonism Seminar";
+const seminarTheme = "On Language";
+---
+
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <main class="hero">
+      <h1>{pageTitle}</h1>
+      <p>{seminarTheme}</p>
+    </main>
+	<AboutSection />
+  </body>
+</html>
+
+<style is:global>
+	:root {
+	  /* Let's try the test font again in a global context */
+	  font-family: 'Inter', sans-serif;
+	}
+  
+	body {
+	  margin: 0;
+	  background-color: #F8F9FA;
+	}
+  
+	.hero {
+	  width: 100%;
+	  height: 100vh;
+	  /* background-image: url('https://technosphere-magazine.hkw.de/assets/6aefb210-0ee6-11e7-a253-d9923802c14e/f9a05215-697e-44bd-a0e9-eb80d87dc444.png'); */
+	  background-size: cover;
+	  background-position: center;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+	  color: #1A1A1A;
+	}
+  
+	h1 {
+		color: #1A1A1A;
+		text-decoration: underline;
+		text-decoration-color: #64748B;
+	  font-size: 3rem;
+	  margin-bottom: 0.5rem;
+	}
+  
+	p {
+	  font-size: 1.5rem;
+	  font-style: italic;
+	}
+  </style>
